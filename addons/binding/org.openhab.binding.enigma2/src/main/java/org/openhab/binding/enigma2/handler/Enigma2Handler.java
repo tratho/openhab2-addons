@@ -139,6 +139,9 @@ public class Enigma2Handler extends BaseThingHandler implements Enigma2CommandEx
             case CHANNEL_REMOTE_KEY:
                 if (command instanceof DecimalType) {
                     commandExecutor.sendRemoteKey((DecimalType) command);
+                } else if (command instanceof StringType) {
+                    // Remotekey is defined as StringTpe, so a conversion to Decimalype is needed
+                    commandExecutor.sendRemoteKey(DecimalType.valueOf(command.toString()));
                 } else {
                     logger.warn("Invalid command type: {}: {}", command.getClass(), command);
                 }
